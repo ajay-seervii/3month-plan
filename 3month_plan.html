@@ -29,7 +29,7 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
             background: var(--color-bg);
             min-height: 100vh;
-            padding: 32px 16px;
+            padding: 24px 20px;
             color: var(--color-text-primary);
             line-height: 1.6;
         }
@@ -41,34 +41,44 @@
 
         /* Header */
         header {
-            background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-secondary) 100%);
-            padding: 48px 40px;
-            margin-bottom: 40px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-            border: 1px solid var(--color-border);
+            padding: 0 0 16px;
+            border-bottom: 1px solid var(--color-border);
         }
 
         h1 {
-            font-size: 2.4em;
+            font-size: 28px;
             font-weight: 700;
             color: var(--color-primary);
-            margin-bottom: 12px;
-            letter-spacing: -0.8px;
+            margin-bottom: 6px;
+            letter-spacing: 0;
             line-height: 1.2;
         }
 
         .subtitle {
-            font-size: 1em;
+            font-size: 14px;
             color: var(--color-text-secondary);
-            margin-bottom: 24px;
+            margin-bottom: 8px;
             font-weight: 400;
-            letter-spacing: 0.3px;
+            letter-spacing: 0;
+        }
+
+        .plan-details summary {
+            width: fit-content;
+            min-height: 44px;
+            padding: 10px 0;
+            color: var(--color-text-secondary);
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .plan-details[open] summary {
+            margin-bottom: 4px;
         }
 
         .meta {
             display: flex;
-            gap: 16px;
+            gap: 8px;
             flex-wrap: wrap;
         }
 
@@ -95,19 +105,14 @@
 
         /* Progress Bar */
         .progress-section {
-            background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-secondary) 100%);
-            padding: 32px 40px;
-            margin-bottom: 40px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-            border: 1px solid var(--color-border);
+            padding: 14px 0 20px;
         }
 
         .progress-label {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 6px;
             font-size: 0.95em;
         }
 
@@ -123,7 +128,7 @@
             font-weight: 700;
             color: var(--color-accent);
             font-size: 1.6em;
-            letter-spacing: -0.5px;
+            letter-spacing: 0;
         }
 
         .progress-bar {
@@ -132,7 +137,7 @@
             background: var(--color-border);
             border-radius: 3px;
             overflow: hidden;
-            margin-bottom: 16px;
+            margin-bottom: 6px;
         }
 
         .progress-fill {
@@ -161,35 +166,95 @@
             gap: 14px;
         }
 
+        .month-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            min-width: 0;
+        }
+
+        .month-group[hidden] {
+            display: none;
+        }
+
+        .month-tabs {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            border-bottom: 1px solid var(--color-border);
+            margin-bottom: 20px;
+        }
+
+        .month-tab {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 2px;
+            min-height: 64px;
+            padding: 10px 4px;
+            border-radius: 0;
+            border-bottom: 3px solid transparent;
+            background: transparent;
+            color: var(--color-text-secondary);
+            font-size: 14px;
+            letter-spacing: 0;
+        }
+
+        .month-tab span {
+            font-size: 11px;
+            font-weight: 400;
+        }
+
+        .month-tab[aria-selected="true"] {
+            color: var(--color-primary);
+            border-bottom-color: var(--color-accent);
+        }
+
+        .month-tab:hover {
+            background: var(--color-surface-secondary);
+        }
+
+        .month-heading {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 4px 12px;
+            padding: 0 0 12px;
+        }
+
+        .month-heading h2 {
+            font-size: 18px;
+            line-height: 1.4;
+            color: var(--color-primary);
+            letter-spacing: 0;
+        }
+
+        .month-heading span {
+            font-size: 13px;
+            color: var(--color-text-secondary);
+        }
+
         .week-card {
-            background: var(--color-surface);
-            border-radius: 10px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
-            border: 1px solid var(--color-border);
+            border-bottom: 1px solid var(--color-border);
             overflow: hidden;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .week-card:hover {
-            box-shadow: 0 8px 20px rgba(0, 208, 132, 0.12);
             border-color: rgba(0, 208, 132, 0.3);
-            transform: translateY(-2px);
         }
 
         .week-header {
-            background: var(--color-surface);
-            padding: 20px 28px;
+            padding: 20px 0;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid var(--color-border);
             transition: background 0.2s ease;
             user-select: none;
         }
 
         .week-header:hover {
-            background: linear-gradient(135deg, var(--color-surface) 0%, rgba(0, 208, 132, 0.03) 100%);
+            background: var(--color-surface-secondary);
         }
 
         .week-title-group {
@@ -197,27 +262,28 @@
             align-items: center;
             gap: 16px;
             flex: 1;
+            min-width: 0;
         }
 
         .week-number {
-            font-size: 0.75em;
-            font-weight: 700;
-            color: var(--color-accent);
-            background: rgba(0, 208, 132, 0.1);
-            padding: 6px 12px;
-            border-radius: 6px;
-            min-width: 56px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--color-text-secondary);
+            padding: 3px 0;
+            min-width: 32px;
             text-align: center;
-            letter-spacing: 0.5px;
+            letter-spacing: 0;
             text-transform: uppercase;
+            flex-shrink: 0;
         }
 
-        .week-header h2 {
+        .week-header h3 {
             font-size: 1.1em;
-            font-weight: 700;
+            font-weight: 600;
             color: var(--color-primary);
             margin: 0;
-            letter-spacing: -0.4px;
+            letter-spacing: 0;
+            overflow-wrap: anywhere;
         }
 
         .time-estimate {
@@ -227,6 +293,7 @@
             margin-right: 20px;
             font-weight: 600;
             letter-spacing: 0.2px;
+            white-space: nowrap;
         }
 
         .week-header .toggle {
@@ -250,14 +317,23 @@
             transform: rotate(180deg);
         }
 
+        .week-header .toggle::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            border-right: 1.5px solid currentColor;
+            border-bottom: 1.5px solid currentColor;
+            transform: translateY(-2px) rotate(45deg);
+        }
+
         .week-content {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .week-content.expanded {
-            max-height: 2000px;
+            max-height: none;
+            overflow: visible;
             padding: 28px;
             background: var(--color-surface-secondary);
         }
@@ -290,21 +366,17 @@
             padding-left: 0;
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 0;
         }
 
         /* Task Items */
         .item {
-            padding: 12px 14px;
-            background: var(--color-surface);
-            border-radius: 8px;
+            padding: 8px 0;
             display: flex;
             align-items: flex-start;
             gap: 12px;
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            border-left: 3px solid transparent;
-            cursor: pointer;
-            border: 1px solid var(--color-border);
+            border-bottom: 1px solid var(--color-border);
         }
 
         .item:hover {
@@ -324,12 +396,12 @@
         }
 
         .item input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            margin-top: 2px;
+            width: 22px;
+            height: 22px;
+            margin-top: 11px;
             cursor: pointer;
             flex-shrink: 0;
-            accent-color: var(--color-secondary);
+            accent-color: var(--color-accent);
         }
 
         .item.completed input[type="checkbox"] {
@@ -342,7 +414,10 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            font-size: 0.9em;
+            font-size: 16px;
+            min-width: 0;
+            min-height: 44px;
+            padding: 8px 0;
         }
 
         .item.completed label {
@@ -355,6 +430,8 @@
 
         .task-text {
             flex: 1;
+            min-width: 0;
+            overflow-wrap: anywhere;
         }
 
         .difficulty {
@@ -421,8 +498,11 @@
             text-decoration: none;
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             font-weight: 600;
-            white-space: nowrap;
+            white-space: normal;
             letter-spacing: 0.2px;
+            min-height: 44px;
+            overflow-wrap: anywhere;
+            max-width: 100%;
         }
 
         .resource-link:hover {
@@ -440,15 +520,12 @@
 
         /* Controls */
         .controls {
-            background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-secondary) 100%);
-            padding: 28px 40px;
-            border-radius: 12px;
+            padding: 20px 0;
             display: flex;
-            gap: 16px;
-            margin-top: 48px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            gap: 12px;
+            margin-top: 24px;
             flex-wrap: wrap;
-            border: 1px solid var(--color-border);
+            border-top: 1px solid var(--color-border);
         }
 
         button {
@@ -463,6 +540,7 @@
             align-items: center;
             gap: 8px;
             letter-spacing: 0.3px;
+            min-height: 48px;
         }
 
         .btn-primary {
@@ -493,68 +571,237 @@
             color: var(--color-accent);
         }
 
-        /* Phase Dividers */
-        .phase-divider {
-            margin: 32px 0;
-            padding: 20px 28px;
-            background: linear-gradient(135deg, rgba(0, 208, 132, 0.08) 0%, rgba(0, 208, 132, 0.03) 100%);
-            border-left: 4px solid var(--color-accent);
-            border-radius: 8px;
-            font-size: 0.95em;
-            font-weight: 700;
-            color: var(--color-accent);
-            letter-spacing: 0.3px;
-            text-transform: uppercase;
-            box-shadow: 0 2px 8px rgba(0, 208, 132, 0.08);
+        .header-title {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 44px;
+            align-items: start;
+            gap: 12px;
+            margin-bottom: 6px;
         }
 
-        @media (max-width: 640px) {
+        .header-title h1 {
+            margin-bottom: 0;
+        }
+
+        .icon-button {
+            width: 44px;
+            height: 44px;
+            min-height: 44px;
+            padding: 10px;
+            justify-content: center;
+            background: transparent;
+            color: var(--color-text-secondary);
+            flex-shrink: 0;
+        }
+
+        .icon-button:hover {
+            background: var(--color-surface-secondary);
+        }
+
+        .icon-button img, .settings-action img {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+
+        .settings-popup {
+            margin: auto;
+            width: min(360px, calc(100% - 32px));
+            max-height: calc(100dvh - 32px);
+            overflow: auto;
+            padding: 16px;
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            background: var(--color-surface);
+            color: var(--color-text-primary);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.16);
+        }
+
+        .settings-popup::backdrop {
+            background: rgba(0, 0, 0, 0.25);
+        }
+
+        .settings-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .settings-heading h2 {
+            font-size: 18px;
+            letter-spacing: 0;
+        }
+
+        .settings-action {
+            width: 100%;
+            padding: 16px 12px;
+            min-height: 56px;
+            gap: 12px;
+            background: transparent;
+            color: var(--color-text-primary);
+            font-size: 14px;
+            letter-spacing: 0;
+            text-align: left;
+        }
+
+        .settings-action:hover {
+            background: var(--color-surface-secondary);
+        }
+
+        .settings-action--danger {
+            color: #b91c1c;
+            border-top: 1px solid var(--color-border);
+            border-radius: 0;
+        }
+
+        /* Phase Dividers */
+        .phase-divider {
+            margin: 16px 0 0;
+            padding: 0;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--color-text-secondary);
+            letter-spacing: 0;
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--color-primary);
+            outline-offset: 4px;
+        }
+
+        @media (max-width: 900px) {
             body {
-                padding: 20px 12px;
-            }
-
-            header {
-                padding: 32px 24px;
-            }
-
-            h1 {
-                font-size: 1.8em;
+                padding: 20px 24px;
             }
 
             .week-header {
-                padding: 16px 20px;
-            }
-
-            .week-content.expanded {
-                padding: 20px;
-            }
-
-            .time-estimate {
-                display: none;
+                padding: 16px 0;
+                display: grid;
+                grid-template-columns: minmax(0, 1fr) 44px;
+                gap: 4px 12px;
             }
 
             .week-title-group {
-                flex-direction: column;
+                gap: 12px;
                 align-items: flex-start;
             }
 
             .week-number {
-                margin-bottom: 8px;
+                min-width: 32px;
+                padding: 2px 0;
             }
 
-            button {
-                padding: 10px 16px;
-                font-size: 0.85em;
+            .week-header h3 {
+                font-size: 16px;
+                line-height: 1.4;
+            }
+
+            .week-header .toggle {
+                grid-column: 2;
+                grid-row: 1 / 3;
+                width: 44px;
+                height: 44px;
+            }
+
+            .week-content.expanded {
+                padding: 16px;
+            }
+
+            .time-estimate {
+                grid-column: 1;
+                margin: 0 0 0 44px;
+                font-size: 12px;
+            }
+
+            .phase-divider {
+                margin: 16px 0 0;
+                padding: 0;
+                font-size: 13px;
             }
 
             .controls {
-                flex-direction: column;
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
                 gap: 8px;
             }
 
             .controls button {
-                width: 100%;
                 justify-content: center;
+                padding: 12px 8px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 16px 12px;
+            }
+
+            h1 {
+                font-size: 22px;
+                line-height: 1.3;
+            }
+
+            header {
+                padding-bottom: 8px;
+            }
+
+            .subtitle {
+                font-size: 13px;
+                margin-bottom: 0;
+            }
+
+            .badge {
+                font-size: 11px;
+                padding: 6px 8px;
+            }
+
+            .timeline {
+                gap: 10px;
+            }
+
+            .week-header {
+                padding: 16px 0;
+                gap: 4px 4px;
+            }
+
+            .week-content.expanded {
+                padding: 12px;
+            }
+
+            .item label {
+                display: grid;
+                grid-template-columns: minmax(0, 1fr);
+                gap: 6px;
+            }
+
+            .difficulty {
+                justify-self: start;
+                font-size: 10px;
+            }
+
+            .progress-label > span:last-child {
+                font-size: 20px;
+            }
+
+            .progress-section {
+                padding: 10px 0 14px;
+            }
+
+            .progress-label {
+                line-height: 1.2;
+            }
+
+            .stats {
+                font-size: 12px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                transition: none !important;
             }
         }
     </style>
@@ -562,14 +809,22 @@
 <body>
     <div class="container">
         <header>
-            <h1>12-Week Career Pivot Tracker</h1>
-            <p class="subtitle">Weekly breakdown: Cloud & AI/ML + AI-200 Certification</p>
-            <div class="meta">
-                <span class="badge">Azure (AZ-204 background)</span>
-                <span class="badge">10-15 hrs/week</span>
-                <span class="badge">Time Management Focus</span>
-                <span class="badge">AI-200 Target</span>
+            <div class="header-title">
+                <h1>12-Week Career Pivot Tracker</h1>
+                <button class="icon-button" type="button" aria-label="Settings" title="Settings" aria-haspopup="dialog" aria-controls="settings-popup" onclick="document.getElementById('settings-popup').showModal()">
+                    <img src="https://cdn.jsdelivr.net/npm/lucide-static@0.468.0/icons/settings.svg" alt="" aria-hidden="true">
+                </button>
             </div>
+                <p class="subtitle">Cloud & AI/ML · AI-200 Certification</p>
+            <details class="plan-details">
+                <summary>Plan details · 10-15 hrs/week</summary>
+                <div class="meta">
+                    <span class="badge">Azure (AZ-204 background)</span>
+                    <span class="badge">10-15 hrs/week</span>
+                    <span class="badge">Time Management Focus</span>
+                    <span class="badge">AI-200 Target</span>
+                </div>
+            </details>
         </header>
 
         <div class="progress-section">
@@ -583,15 +838,38 @@
             <div class="stats" id="stats"></div>
         </div>
 
+        <div class="month-tabs" role="tablist" aria-label="Plan month">
+            <button class="month-tab" id="month-tab-1" role="tab" aria-selected="true" aria-controls="month-panel-1" onclick="selectMonth(1)">Month 1<span>Weeks 1-4</span></button>
+            <button class="month-tab" id="month-tab-2" role="tab" aria-selected="false" aria-controls="month-panel-2" tabindex="-1" onclick="selectMonth(2)">Month 2<span>Weeks 5-8</span></button>
+            <button class="month-tab" id="month-tab-3" role="tab" aria-selected="false" aria-controls="month-panel-3" tabindex="-1" onclick="selectMonth(3)">Month 3<span>Weeks 9-12</span></button>
+        </div>
+
         <div class="timeline" id="timeline"></div>
 
         <div class="controls">
             <button class="btn-primary" onclick="expandAll()">Expand All</button>
             <button class="btn-secondary" onclick="collapseAll()">Collapse All</button>
-            <button class="btn-secondary" onclick="resetProgress()">Reset Progress</button>
-            <button class="btn-secondary" onclick="exportData()">Export Data</button>
         </div>
     </div>
+
+    <dialog class="settings-popup" id="settings-popup" aria-labelledby="settings-title">
+        <div class="settings-heading">
+            <h2 id="settings-title">Settings</h2>
+            <form method="dialog">
+                <button class="icon-button" aria-label="Close settings" title="Close settings" autofocus>
+                    <img src="https://cdn.jsdelivr.net/npm/lucide-static@0.468.0/icons/x.svg" alt="" aria-hidden="true">
+                </button>
+            </form>
+        </div>
+        <button class="settings-action" type="button" onclick="exportData()">
+            <img src="https://cdn.jsdelivr.net/npm/lucide-static@0.468.0/icons/download.svg" alt="" aria-hidden="true">
+            Export Data
+        </button>
+        <button class="settings-action settings-action--danger" type="button" onclick="resetProgress()">
+            <img src="https://cdn.jsdelivr.net/npm/lucide-static@0.468.0/icons/rotate-ccw.svg" alt="" aria-hidden="true">
+            Reset Progress
+        </button>
+    </dialog>
 
     <script>
         const planData = [
@@ -898,19 +1176,85 @@
             renderTimeline();
             loadProgress();
             updateProgress();
+            const settingsPopup = document.getElementById('settings-popup');
+            settingsPopup.addEventListener('keydown', event => {
+                if (event.key === 'Escape') {
+                    event.preventDefault();
+                    settingsPopup.close();
+                }
+            });
+            settingsPopup.addEventListener('click', event => {
+                if (event.target !== settingsPopup) return;
+                const bounds = settingsPopup.getBoundingClientRect();
+                if (event.clientX < bounds.left || event.clientX > bounds.right ||
+                    event.clientY < bounds.top || event.clientY > bounds.bottom) {
+                    settingsPopup.close();
+                }
+            });
+            document.querySelectorAll('.month-tab').forEach(tab => {
+                tab.addEventListener('keydown', event => {
+                    const current = Number(tab.id.split('-').pop());
+                    let next;
+                    if (event.key === 'ArrowRight') next = current % 3 + 1;
+                    if (event.key === 'ArrowLeft') next = (current + 1) % 3 + 1;
+                    if (event.key === 'Home') next = 1;
+                    if (event.key === 'End') next = 3;
+                    if (next) {
+                        event.preventDefault();
+                        selectMonth(next);
+                        document.getElementById(`month-tab-${next}`).focus();
+                    }
+                });
+            });
+        }
+
+        function selectMonth(monthNumber) {
+            document.querySelectorAll('.month-tab').forEach((tab, index) => {
+                const selected = index + 1 === monthNumber;
+                tab.setAttribute('aria-selected', String(selected));
+                tab.tabIndex = selected ? 0 : -1;
+                document.getElementById(`month-panel-${index + 1}`).hidden = !selected;
+            });
         }
 
         function renderTimeline() {
             const timeline = document.getElementById('timeline');
             timeline.innerHTML = '';
+            let monthGroup;
 
             planData.forEach((item, index) => {
                 if (item.phase) {
                     const divider = document.createElement('div');
                     divider.className = 'phase-divider';
                     divider.textContent = item.title;
-                    timeline.appendChild(divider);
+                    monthGroup.appendChild(divider);
                     return;
+                }
+
+                if ((item.week - 1) % 4 === 0) {
+                    const monthNumber = Math.ceil(item.week / 4);
+                    monthGroup = document.createElement('section');
+                    monthGroup.className = 'month-group';
+                    monthGroup.id = `month-panel-${monthNumber}`;
+                    monthGroup.setAttribute('role', 'tabpanel');
+                    monthGroup.setAttribute('aria-labelledby', `month-tab-${monthNumber}`);
+                    monthGroup.tabIndex = 0;
+                    monthGroup.hidden = monthNumber !== 1;
+
+                    const monthHeading = document.createElement('div');
+                    monthHeading.className = 'month-heading';
+
+                    const monthTitle = document.createElement('h2');
+                    monthTitle.id = `month-${monthNumber}`;
+                    monthTitle.textContent = ['Cloud foundations', 'Applied AI & exam prep', 'ML delivery & career'][monthNumber - 1];
+
+                    const weekRange = document.createElement('span');
+                    weekRange.textContent = `Weeks ${item.week}-${item.week + 3}`;
+
+                    monthHeading.appendChild(monthTitle);
+                    monthHeading.appendChild(weekRange);
+                    monthGroup.appendChild(monthHeading);
+                    timeline.appendChild(monthGroup);
                 }
 
                 const weekCard = document.createElement('div');
@@ -919,20 +1263,30 @@
 
                 const weekHeader = document.createElement('div');
                 weekHeader.className = 'week-header';
+                weekHeader.setAttribute('role', 'button');
+                weekHeader.tabIndex = 0;
+                weekHeader.setAttribute('aria-expanded', 'false');
+                weekHeader.setAttribute('aria-controls', `content-${index}`);
                 weekHeader.onclick = () => toggleWeek(index);
+                weekHeader.onkeydown = event => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        toggleWeek(index);
+                    }
+                };
 
                 const titleGroup = document.createElement('div');
                 titleGroup.className = 'week-title-group';
 
                 const weekNumber = document.createElement('div');
                 weekNumber.className = 'week-number';
-                weekNumber.textContent = `W${item.week}`;
+                weekNumber.textContent = String(item.week).padStart(2, '0');
 
-                const h2 = document.createElement('h2');
-                h2.textContent = item.title;
+                const weekTitle = document.createElement('h3');
+                weekTitle.textContent = item.title;
 
                 titleGroup.appendChild(weekNumber);
-                titleGroup.appendChild(h2);
+                titleGroup.appendChild(weekTitle);
 
                 const timeEstimate = document.createElement('div');
                 timeEstimate.className = 'time-estimate';
@@ -940,7 +1294,7 @@
 
                 const toggle = document.createElement('span');
                 toggle.className = 'toggle';
-                toggle.textContent = '▼';
+                toggle.setAttribute('aria-hidden', 'true');
 
                 weekHeader.appendChild(titleGroup);
                 weekHeader.appendChild(timeEstimate);
@@ -949,6 +1303,7 @@
                 const weekContent = document.createElement('div');
                 weekContent.className = 'week-content';
                 weekContent.id = `content-${index}`;
+                weekContent.hidden = true;
 
                 item.sections.forEach((section, sectionIndex) => {
                     const sectionDiv = document.createElement('div');
@@ -968,6 +1323,7 @@
 
                         const checkbox = document.createElement('input');
                         checkbox.type = 'checkbox';
+                        checkbox.id = `checkbox-${index}-${sectionIndex}-${itemIndex}`;
                         checkbox.onchange = () => {
                             saveProgress();
                             updateProgress();
@@ -975,6 +1331,7 @@
                         };
 
                         const label = document.createElement('label');
+                        label.htmlFor = checkbox.id;
                         const taskText = document.createElement('span');
                         taskText.className = 'task-text';
                         taskText.textContent = taskItem.text;
@@ -1028,7 +1385,7 @@
 
                 weekCard.appendChild(weekHeader);
                 weekCard.appendChild(weekContent);
-                timeline.appendChild(weekCard);
+                monthGroup.appendChild(weekCard);
             });
         }
 
@@ -1039,6 +1396,8 @@
             if (header) {
                 header.classList.toggle('expanded');
                 content.classList.toggle('expanded');
+                content.hidden = !header.classList.contains('expanded');
+                header.setAttribute('aria-expanded', String(!content.hidden));
             }
         }
 
@@ -1058,6 +1417,8 @@
                     if (header && !header.classList.contains('expanded')) {
                         header.classList.add('expanded');
                         content.classList.add('expanded');
+                        content.hidden = false;
+                        header.setAttribute('aria-expanded', 'true');
                     }
                 }
             });
@@ -1071,6 +1432,8 @@
                     if (header && header.classList.contains('expanded')) {
                         header.classList.remove('expanded');
                         content.classList.remove('expanded');
+                        content.hidden = true;
+                        header.setAttribute('aria-expanded', 'false');
                     }
                 }
             });
