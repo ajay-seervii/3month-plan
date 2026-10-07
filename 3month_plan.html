@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12-Week Career Pivot Tracker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-primary: #1a1a1a;
+            --color-accent: #00d084;
+            --color-accent-hover: #00c273;
+            --color-success: #00d084;
+            --color-surface: #fefcf8;
+            --color-surface-secondary: #faf7f2;
+            --color-border: #e8dfd6;
+            --color-text-primary: #2d2d2d;
+            --color-text-secondary: #6b6b6b;
+            --color-text-tertiary: #9a9a9a;
+            --color-bg: #f5f1e8;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: var(--color-bg);
+            min-height: 100vh;
+            padding: 32px 16px;
+            color: var(--color-text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-secondary) 100%);
+            padding: 48px 40px;
+            margin-bottom: 40px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            border: 1px solid var(--color-border);
+        }
+
+        h1 {
+            font-size: 2.4em;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 12px;
+            letter-spacing: -0.8px;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: 1em;
+            color: var(--color-text-secondary);
+            margin-bottom: 24px;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+
+        .meta {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            background: var(--color-surface-secondary);
+            color: var(--color-text-primary);
+            border-radius: 8px;
+            font-size: 0.85em;
+            font-weight: 600;
+            border: 1px solid var(--color-border);
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+        
+        .badge:first-child {
+            border-color: var(--color-accent);
+            color: var(--color-accent);
+            background: rgba(0, 208, 132, 0.08);
+        }
+
+        /* Progress Bar */
+        .progress-section {
+            background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-secondary) 100%);
+            padding: 32px 40px;
+            margin-bottom: 40px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            border: 1px solid var(--color-border);
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 0.95em;
+        }
+
+        .progress-label > span:first-child {
+            color: var(--color-text-secondary);
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+            font-size: 0.85em;
+        }
+
+        .progress-label > span:last-child {
+            font-weight: 700;
+            color: var(--color-accent);
+            font-size: 1.6em;
+            letter-spacing: -0.5px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: var(--color-border);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-accent) 0%, var(--color-accent-hover) 100%);
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 3px;
+            box-shadow: 0 0 12px rgba(0, 208, 132, 0.3);
+        }
+
+        .stats {
+            font-size: 0.9em;
+            color: var(--color-text-secondary);
+            font-weight: 500;
+        }
+        
+        .stats strong {
+            color: var(--color-accent);
+            font-weight: 700;
+        }
+
+        /* Timeline */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .week-card {
+            background: var(--color-surface);
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+            border: 1px solid var(--color-border);
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .week-card:hover {
+            box-shadow: 0 8px 20px rgba(0, 208, 132, 0.12);
+            border-color: rgba(0, 208, 132, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .week-header {
+            background: var(--color-surface);
+            padding: 20px 28px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--color-border);
+            transition: background 0.2s ease;
+            user-select: none;
+        }
+
+        .week-header:hover {
+            background: linear-gradient(135deg, var(--color-surface) 0%, rgba(0, 208, 132, 0.03) 100%);
+        }
+
+        .week-title-group {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex: 1;
+        }
+
+        .week-number {
+            font-size: 0.75em;
+            font-weight: 700;
+            color: var(--color-accent);
+            background: rgba(0, 208, 132, 0.1);
+            padding: 6px 12px;
+            border-radius: 6px;
+            min-width: 56px;
+            text-align: center;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .week-header h2 {
+            font-size: 1.1em;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin: 0;
+            letter-spacing: -0.4px;
+        }
+
+        .time-estimate {
+            font-size: 0.85em;
+            color: var(--color-text-secondary);
+            margin-left: auto;
+            margin-right: 20px;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+        }
+
+        .week-header .toggle {
+            font-size: 1.1em;
+            color: var(--color-text-tertiary);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.2s ease, background 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 6px;
+        }
+
+        .week-header:hover .toggle {
+            color: var(--color-accent);
+            background: rgba(0, 208, 132, 0.08);
+        }
+
+        .week-header.expanded .toggle {
+            transform: rotate(180deg);
+        }
+
+        .week-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .week-content.expanded {
+            max-height: 2000px;
+            padding: 28px;
+            background: var(--color-surface-secondary);
+        }
+
+        /* Sections */
+        .section {
+            margin-bottom: 24px;
+        }
+
+        .section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            font-size: 0.85em;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid rgba(0, 208, 132, 0.2);
+        }
+
+        .items-list {
+            list-style: none;
+            padding-left: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        /* Task Items */
+        .item {
+            padding: 12px 14px;
+            background: var(--color-surface);
+            border-radius: 8px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            border-left: 3px solid transparent;
+            cursor: pointer;
+            border: 1px solid var(--color-border);
+        }
+
+        .item:hover {
+            background: linear-gradient(135deg, var(--color-surface) 0%, rgba(0, 208, 132, 0.02) 100%);
+            border-left-color: var(--color-accent);
+            border-color: rgba(0, 208, 132, 0.2);
+        }
+
+        .item.completed {
+            background: linear-gradient(135deg, rgba(0, 208, 132, 0.06) 0%, rgba(0, 208, 132, 0.02) 100%);
+            border-left-color: var(--color-accent);
+            border-color: rgba(0, 208, 132, 0.2);
+        }
+
+        .item.completed:hover {
+            background: linear-gradient(135deg, rgba(0, 208, 132, 0.1) 0%, rgba(0, 208, 132, 0.04) 100%);
+        }
+
+        .item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-top: 2px;
+            cursor: pointer;
+            flex-shrink: 0;
+            accent-color: var(--color-secondary);
+        }
+
+        .item.completed input[type="checkbox"] {
+            accent-color: var(--color-success);
+        }
+
+        .item label {
+            cursor: pointer;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9em;
+        }
+
+        .item.completed label {
+            color: var(--color-text-tertiary);
+        }
+
+        .item.completed label .task-text {
+            text-decoration: line-through;
+        }
+
+        .task-text {
+            flex: 1;
+        }
+
+        .difficulty {
+            font-size: 0.65em;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: 700;
+            white-space: nowrap;
+            flex-shrink: 0;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+
+        .difficulty.easy {
+            background: rgba(0, 208, 132, 0.15);
+            color: #00a366;
+        }
+
+        .difficulty.medium {
+            background: rgba(255, 159, 64, 0.15);
+            color: #cc6600;
+        }
+
+        .difficulty.hard {
+            background: rgba(239, 68, 68, 0.15);
+            color: #b91c1c;
+        }
+
+        /* Resources */
+        .resources {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(0, 208, 132, 0.2);
+        }
+
+        .resources-label {
+            font-size: 0.75em;
+            font-weight: 700;
+            color: var(--color-text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .resources-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .resource-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 6px 12px;
+            background: var(--color-surface);
+            border: 1.5px solid var(--color-border);
+            border-radius: 6px;
+            font-size: 0.8em;
+            color: var(--color-accent);
+            text-decoration: none;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 600;
+            white-space: nowrap;
+            letter-spacing: 0.2px;
+        }
+
+        .resource-link:hover {
+            background: linear-gradient(135deg, rgba(0, 208, 132, 0.1) 0%, rgba(0, 208, 132, 0.05) 100%);
+            color: var(--color-accent);
+            border-color: var(--color-accent);
+            box-shadow: 0 4px 12px rgba(0, 208, 132, 0.2);
+        }
+
+        .resource-link::before {
+            content: "→";
+            font-size: 0.85em;
+            font-weight: 700;
+        }
+
+        /* Controls */
+        .controls {
+            background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-secondary) 100%);
+            padding: 28px 40px;
+            border-radius: 12px;
+            display: flex;
+            gap: 16px;
+            margin-top: 48px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            flex-wrap: wrap;
+            border: 1px solid var(--color-border);
+        }
+
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: 0.3px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-hover) 100%);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(0, 208, 132, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--color-accent-hover) 0%, var(--color-accent) 100%);
+            box-shadow: 0 8px 20px rgba(0, 208, 132, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: var(--color-surface-secondary);
+            color: var(--color-text-primary);
+            border: 1.5px solid var(--color-border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--color-surface);
+            border-color: var(--color-accent);
+            color: var(--color-accent);
+        }
+
+        /* Phase Dividers */
+        .phase-divider {
+            margin: 32px 0;
+            padding: 20px 28px;
+            background: linear-gradient(135deg, rgba(0, 208, 132, 0.08) 0%, rgba(0, 208, 132, 0.03) 100%);
+            border-left: 4px solid var(--color-accent);
+            border-radius: 8px;
+            font-size: 0.95em;
+            font-weight: 700;
+            color: var(--color-accent);
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+            box-shadow: 0 2px 8px rgba(0, 208, 132, 0.08);
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 20px 12px;
+            }
+
+            header {
+                padding: 32px 24px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .week-header {
+                padding: 16px 20px;
+            }
+
+            .week-content.expanded {
+                padding: 20px;
+            }
+
+            .time-estimate {
+                display: none;
+            }
+
+            .week-title-group {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .week-number {
+                margin-bottom: 8px;
+            }
+
+            button {
+                padding: 10px 16px;
+                font-size: 0.85em;
+            }
+
+            .controls {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .controls button {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>12-Week Career Pivot Tracker</h1>
+            <p class="subtitle">Weekly breakdown: Cloud & AI/ML + AI-200 Certification</p>
+            <div class="meta">
+                <span class="badge">Azure (AZ-204 background)</span>
+                <span class="badge">10-15 hrs/week</span>
+                <span class="badge">Time Management Focus</span>
+                <span class="badge">AI-200 Target</span>
+            </div>
+        </header>
+
+        <div class="progress-section">
+            <div class="progress-label">
+                <span>Overall Progress</span>
+                <span id="progress-text">0%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="stats" id="stats"></div>
+        </div>
+
+        <div class="timeline" id="timeline"></div>
+
+        <div class="controls">
+            <button class="btn-primary" onclick="expandAll()">Expand All</button>
+            <button class="btn-secondary" onclick="collapseAll()">Collapse All</button>
+            <button class="btn-secondary" onclick="resetProgress()">Reset Progress</button>
+            <button class="btn-secondary" onclick="exportData()">Export Data</button>
+        </div>
+    </div>
+
+    <script>
+        const planData = [
+            // PHASE 1: WEEKS 1-4 (Azure Refresh + Docker + Project 1)
+            {
+                week: 1,
+                title: "Azure Refresh + Docker Setup",
+                timeEstimate: "12-14 hrs",
+                sections: [
+                    {
+                        title: "Tasks",
+                        items: [
+                            { text: "Refresh: Azure Portal navigation, Resource Groups, Subscriptions", difficulty: "easy" },
+                            { text: "Refresh: VMs, Storage Accounts, App Service basics", difficulty: "easy" },
+                            { text: "Docker: Install Docker Desktop", difficulty: "easy" },
+                            { text: "Docker: Run 'hello-world' container", difficulty: "easy" },
+                            { text: "Docker: Build first Dockerfile (simple Python app)", difficulty: "medium" }
+                        ],
+                        resources: [
+                            { title: "Docker Get Started", url: "https://docs.docker.com/get-started/" },
+                            { title: "Azure Portal Tour", url: "https://learn.microsoft.com/en-us/azure/azure-portal/" }
+                        ]
+                    }
+                ]
+            },
+            {
+                week: 2,
+                title: "Docker Deep Dive + Container Instances",
+                timeEstimate: "13-15 hrs",
+                sections: [
+                    {
+                        title: "Tasks",
+                        items: [
+                            { text: "Docker: Multi-stage builds & best practices", difficulty: "medium" },
+                            { text: "Docker: Push image to Docker Hub", difficulty: "medium" },
+                            { text: "Azure: Set up Container Registry (ACR)", difficulty: "medium" },
+                            { text: "Azure: Deploy to Container Instances (ACI)", difficulty: "medium" },
+                            { text: "Azure: Configure networking & environment variables", difficulty: "medium" }
+                        ],
+                        resources: [
+                            { title: "Docker Compose", url: "https://docs.docker.com/compose/" },
+                            { title: "Azure Container Registry Docs", url: "https://learn.microsoft.com/en-us/azure/container-registry/" },
+                            { title: "Container Instances Docs", url: "https://learn.microsoft.com/en-us/azure/container-instances/" }
+                        ]
+                    }
+                ]
+            },
+            {
+                week: 3,
+                title: "Project 1: Weather Pipeline (Build Phase)",
+                timeEstimate: "14-15 hrs",
+                sections: [
+                    {
+                        title: "Tasks",
+                        items: [
+                            { text: "Setup: Create GitHub repo + Python project skeleton", difficulty: "easy" },
+                            { text: "Code: Weather API integration (OpenWeatherMap or similar)", difficulty: "medium" },
+                            { text: "Code: Data pipeline (fetch → transform → store)", difficulty: "medium" },
+                            { text: "Storage: Set up Azure Blob Storage container", difficulty: "easy" },
+                            { text: "Code: Local testing & debugging", difficulty: "medium" }
+                        ],
+                        resources: [
+                            { title: "Requests Library Docs", url: "https://requests.readthedocs.io/" },
+                            { title: "Azure Storage SDK Python", url: "https://learn.microsoft.com/en-us/python/api/overview/azure/storage" },
+                            { title: "GitHub Getting Started", url: "https://docs.github.com/en/get-started" }
+                        ]
+                    }
+                ]
+            },
+            {
+                week: 4,
+                title: "Project 1: Deploy + Blog",
+                timeEstimate: "12-14 hrs",
+                sections: [
+                    {
+                        title: "Tasks",
+                        items: [
+                            { text: "Docker: Containerize weather pipeline", difficulty: "medium" },
+                            { text: "Deploy: Push to ACR", difficulty: "easy" },
+                            { text: "Deploy: Run on ACI with schedule/timer", difficulty: "medium" },
+                            { text: "GitHub: Polish README + documentation", difficulty: "medium" },
+                            { text: "Blog: Write 'Deploying Weather Pipeline to Azure' post", difficulty: "medium" }
+                        ],
+                        resources: [
+                            { title: "Dev.to Writing Guide", url: "https://dev.to/" },
+                            { title: "Markdown Guide", url: "https://www.markdownguide.org/" },
+                            { title: "Azure Container Instances Scheduling", url: "https://learn.microsoft.com/en-us/azure/container-instances/" }
+                        ]
+                    }
+                ]
+            },
+
+            // PHASE DIVIDER
+            {
+                phase: true,
+                title: "Phase 1 Complete: Project 1 Live on Azure ✓"
+            },
+
+            // PHASE 2: WEEKS 5-8 (Azure OpenAI + Project 2 + AI-200 Prep)
+            {
+                week: 5,
+                title: "Azure OpenAI + FastAPI Basics",
+                timeEstimate: "13-15 hrs",
+                sections: [
+                    {
+                        title: "Tasks",
+                        items: [
+                            { text: "Azure: Request & setup Azure OpenAI Service access", difficulty: "medium" },
+                            { text: "Azure: Deploy GPT-4 or Claude model", difficulty: "easy" },
+                            { text: "FastAPI: Install & run 'Hello World' app", difficulty: "easy" },
+                            { text: "FastAPI: Create first endpoint (GET, POST)", difficulty: "medium" },
+                            { text: "Integration: Call Azure OpenAI from FastAPI", difficulty: "medium" },
+                            { text: "Testing: Local testing with curl/Postman", difficulty: "medium" }
+                        ],
+                        resources: [
+                            { title: "FastAPI Official Tutorial", url: "https://fastapi.tiangolo.com/tutorial/" },
+                            { title: "Azure OpenAI Getting Started", url: "https://learn.microsoft.com/en-us/azure/ai-services/openai/quickstart" },
+                            { title: "Azure OpenAI Python SDK", url: "https://github.com/Azure/azure-sdk-for-python" }
+                        ]
+                    }
+                ]
+            },
+            {
+                week: 6,
+                title: "Project 2: Document Analyzer (Build Phase)",
+                timeEstimate: "14-15 hrs",
+                sections: [
+                    {
+                        title: "Tasks",
+                        items: [
+                            { text: "Setup: Create new GitHub repo for Project 2", difficulty: "easy" },
+                            { text: "Backend: File upload endpoint (FastAPI + Python-Multipart)", difficulty: "medium" },
+                            { text: "Backend: Document parsing (PDF/TXT extraction)", difficulty: "hard" },
+                            { text: "Backend: Call Azure OpenAI for analysis", difficulty: "medium" },
+                            { text: "Backend: Return structured response (JSON)", difficulty: "medium" },
+                            { text: "Testing: End-to-end test locally", difficulty: "medium" }
+                        ],
+                        resources: [
+                            { title: "FastAPI File Upload", url: "https://fastapi.tiangolo.com/tutorial/request-files/" },
+                            { title: "Python PDF Processing", url: "https://pymupdf.readthedocs.io/" },
+                            { title: "JSON Best Practices", url: "https://docs.python-guide.org/writing/style/" }
+                        ]
+                    }
+                ]
+            },
+            {
+                week: 7,
+                title: "Project 2: Deploy + Frontend",
+                timeEstimate: "14-15 hrs",
+                sections: [
+                    {
+                        title: "Tasks",
+                        items: [
+                            { text: "Frontend: Build simple React upload form (or Vue)", difficulty: "hard" },
+                            { text: "Frontend: Call backend API from React", difficulty: "medium" },
+                            { text: "Frontend: Display analysis results", difficulty: "medium" },
+                            { text: "Deploy: Push code to GitHub", difficulty: "easy" },
+                            { text: "Deploy: Create Dockerfile for full app", difficulty: "medium" },
+                            { text: "Deploy: Push to ACR + Deploy to Azure App Service", difficulty: "medium" }
+                        ],
+                        resources: [
+                            { title: "React Official Tutorial", url: "https://react.dev/learn" },
+                            { title: "Azure App Service Deployment", url: "https://learn.microsoft.com/en-us/azure/app-service/" },
+                            { title: "CORS Configuration", url: "https://fastapi.tiangolo.com/tutorial/cors/" }
+                        ]
+                    }
+                ]
+            },
+            {
+                week: 8,
+                title: "AI-200 Exam Prep Sprint 1",
+                timeEstimate: "12-14 hrs",
+                sections: [
+                    {
+                        title: "Tasks",
+                        items: [
+                            { text: "Study: Review AI-200 exam objectives & study guide", difficulty: "medium" },
+                            { text: "Study: Azure AI Services overview (all services)", difficulty: "hard" },
+                            { text: "Practice: Take first AI-200 practice exam (full)", difficulty: "hard" },
+                            { text: "Review: Identify weak areas from practice test", difficulty: "medium" },
+                            { text: "Blog: Write 'Building AI Apps with Azure OpenAI' post", difficulty: "medium" }
+                        ],
+                        resources: [
+                            { title: "AI-200 Study Path", url: "https://learn.microsoft.com/en-us/training/paths/prepare-for-azure-ai-engineer-certification/" },
+                            { title: "Azure AI Services Docs", url: "https://learn.microsoft.com/en-us/azure/ai-services/" },
+                            { title: "Practice Exam", url: "https://learn.microsoft.com/en-us/credentials/certifications/exams/ai-200/" }
+                        ]
+                    }
+                ]
+            },
+
+            // PHASE DIVIDER
+            {
+                phase: true,
+                title: "Phase 2 Complete: Project 2 Live + AI-200 Prep Started ✓"
+            },
+
+            // PHASE 3: WEEKS 9-12 (ML Pipeline + AI-200 Exam + Career Push)
+            {
+                week: 9,
+                title: "Azure ML + Model Training",
+                timeEstimate: "14-15 hrs",
+                sections: [
+                    {
+                        title: "Tasks",
+                        items: [
+                            { text: "Azure ML: Set up workspace & compute instance", difficulty: "medium" },
+                            { text: "ML: Prepare dataset (housing, sales, or classification data)", difficulty: "medium" },
+                            { text: "ML: Exploratory Data Analysis (EDA) with pandas", difficulty: "medium" },
+                            { text: "ML: Feature engineering & preprocessing", difficulty: "hard" },
+                            { text: "ML: Train model (scikit-learn or AutoML)", difficulty: "medium" },
+                            { text: "ML: Evaluate model performance (metrics, validation)", difficulty: "medium" }
+                        ],
+                        resources: [
+                            { title: "Azure ML Studio", url: "https://ml.azure.com/" },
+                            { title: "Azure ML Documentation", url: "https://learn.microsoft.com/en-us/azure/machine-learning/" },
+                            { title: "Scikit-learn Docs", url: "https://scikit-learn.org/stable/" },
+                            { title: "Pandas Documentation", url: "https://pandas.pydata.org/docs/" }
+                        ]
+                    }
+                ]
+            },
+            {
+                week: 10,
+                title: "ML Pipeline Orchestration",
+                timeEstimate: "13-15 hrs",
+                sections: [
+                    {
+                        title: "Tasks",
+                        items: [
+                            { text: "ML: Create inference script (model predictions)", difficulty: "medium" },
+                            { text: "ML: Build FastAPI endpoint for predictions", difficulty: "medium" },
+                            { text: "ML: Create Azure ML pipeline (data → train → evaluate)", difficulty: "hard" },
+                            { text: "ML: Set up model registry & versioning", difficulty: "medium" },
+                            { text: "ML: Document pipeline architecture", difficulty: "medium" }
+                        ],
+                        resources: [
+                            { title: "Azure ML Pipelines", url: "https://learn.microsoft.com/en-us/azure/machine-learning/concept-ml-pipelines" },
+                            { title: "MLflow Tracking", url: "https://learn.microsoft.com/en-us/azure/machine-learning/how-to-use-mlflow" },
+                            { title: "Model Deployment Guide", url: "https://learn.microsoft.com/en-us/azure/machine-learning/how-to-deploy-managed-online-endpoints" }
+                        ]
+                    }
+                ]
+            },
+            {
+                week: 11,
+                title: "Project 3: Deploy + Monitoring",
+                timeEstimate: "14-15 hrs",
+                sections: [
+                    {
+                        title: "Tasks",
+                        items: [
+                            { text: "Deploy: Create Azure ML endpoint for model", difficulty: "hard" },
+                            { text: "Deploy: Test endpoint (predictions working)", difficulty: "medium" },
+                            { text: "Monitor: Set up Application Insights logging", difficulty: "medium" },
+                            { text: "Deploy: Containerize entire ML app", difficulty: "medium" },
+                            { text: "GitHub: Push all code + comprehensive README", difficulty: "medium" },
+                            { text: "Documentation: Write ML ops workflow guide", difficulty: "medium" }
+                        ],
+                        resources: [
+                            { title: "Azure ML Endpoints", url: "https://learn.microsoft.com/en-us/azure/machine-learning/how-to-deploy-managed-online-endpoints" },
+                            { title: "Application Insights", url: "https://learn.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview" },
+                            { title: "GitHub README Best Practices", url: "https://github.com/othneildrew/Best-README-Template" }
+                        ]
+                    }
+                ]
+            },
+            {
+                week: 12,
+                title: "AI-200 Exam Sprint 2 + Career Prep",
+                timeEstimate: "13-15 hrs",
+                sections: [
+                    {
+                        title: "Tasks",
+                        items: [
+                            { text: "Study: Practice exam 2 (focus on weak areas)", difficulty: "hard" },
+                            { text: "Study: Deep dive on Azure Cognitive Services", difficulty: "hard" },
+                            { text: "Study: Review real-world ML scenarios & best practices", difficulty: "hard" },
+                            { text: "Exam: Schedule AI-200 exam date (within 2 weeks)", difficulty: "easy" },
+                            { text: "Career: Polish resume with 3 projects + AI-200 target", difficulty: "medium" },
+                            { text: "Career: Update LinkedIn with projects & certification goal", difficulty: "easy" },
+                            { text: "Career: Write final blog post (3 projects overview)", difficulty: "medium" },
+                            { text: "Career: Start applying to Cloud/AI roles", difficulty: "medium" }
+                        ],
+                        resources: [
+                            { title: "AI-200 Exam Details", url: "https://learn.microsoft.com/en-us/credentials/certifications/exams/ai-200/" },
+                            { title: "Pearson VUE Registration", url: "https://www.pearsonvue.com/microsoft" },
+                            { title: "Job Boards: LinkedIn", url: "https://www.linkedin.com/jobs/" },
+                            { title: "Tech Jobs: Stack Overflow", url: "https://stackoverflow.com/jobs" }
+                        ]
+                    }
+                ]
+            },
+
+            // FINAL PHASE DIVIDER
+            {
+                phase: true,
+                title: "Phase 3 Complete: All Projects Live + AI-200 Ready ✓"
+            }
+        ];
+
+        // Initialize UI
+        function initializeUI() {
+            renderTimeline();
+            loadProgress();
+            updateProgress();
+        }
+
+        function renderTimeline() {
+            const timeline = document.getElementById('timeline');
+            timeline.innerHTML = '';
+
+            planData.forEach((item, index) => {
+                if (item.phase) {
+                    const divider = document.createElement('div');
+                    divider.className = 'phase-divider';
+                    divider.textContent = item.title;
+                    timeline.appendChild(divider);
+                    return;
+                }
+
+                const weekCard = document.createElement('div');
+                weekCard.className = 'week-card';
+                weekCard.id = `week-${index}`;
+
+                const weekHeader = document.createElement('div');
+                weekHeader.className = 'week-header';
+                weekHeader.onclick = () => toggleWeek(index);
+
+                const titleGroup = document.createElement('div');
+                titleGroup.className = 'week-title-group';
+
+                const weekNumber = document.createElement('div');
+                weekNumber.className = 'week-number';
+                weekNumber.textContent = `W${item.week}`;
+
+                const h2 = document.createElement('h2');
+                h2.textContent = item.title;
+
+                titleGroup.appendChild(weekNumber);
+                titleGroup.appendChild(h2);
+
+                const timeEstimate = document.createElement('div');
+                timeEstimate.className = 'time-estimate';
+                timeEstimate.textContent = item.timeEstimate;
+
+                const toggle = document.createElement('span');
+                toggle.className = 'toggle';
+                toggle.textContent = '▼';
+
+                weekHeader.appendChild(titleGroup);
+                weekHeader.appendChild(timeEstimate);
+                weekHeader.appendChild(toggle);
+
+                const weekContent = document.createElement('div');
+                weekContent.className = 'week-content';
+                weekContent.id = `content-${index}`;
+
+                item.sections.forEach((section, sectionIndex) => {
+                    const sectionDiv = document.createElement('div');
+                    sectionDiv.className = 'section';
+
+                    const sectionTitle = document.createElement('div');
+                    sectionTitle.className = 'section-title';
+                    sectionTitle.textContent = section.title;
+
+                    const itemsList = document.createElement('ul');
+                    itemsList.className = 'items-list';
+
+                    section.items.forEach((taskItem, itemIndex) => {
+                        const li = document.createElement('li');
+                        li.className = 'item';
+                        li.id = `item-${index}-${sectionIndex}-${itemIndex}`;
+
+                        const checkbox = document.createElement('input');
+                        checkbox.type = 'checkbox';
+                        checkbox.onchange = () => {
+                            saveProgress();
+                            updateProgress();
+                            toggleItemClass(li, checkbox.checked);
+                        };
+
+                        const label = document.createElement('label');
+                        const taskText = document.createElement('span');
+                        taskText.className = 'task-text';
+                        taskText.textContent = taskItem.text;
+
+                        const diffBadge = document.createElement('span');
+                        diffBadge.className = `difficulty ${taskItem.difficulty}`;
+                        diffBadge.textContent = taskItem.difficulty;
+
+                        label.appendChild(taskText);
+                        label.appendChild(diffBadge);
+
+                        li.appendChild(checkbox);
+                        li.appendChild(label);
+                        itemsList.appendChild(li);
+                    });
+
+                    sectionDiv.appendChild(sectionTitle);
+                    sectionDiv.appendChild(itemsList);
+
+                    // Add resources
+                    if (section.resources && section.resources.length > 0) {
+                        const resourcesDiv = document.createElement('div');
+                        resourcesDiv.className = 'resources';
+
+                        const resourcesLabel = document.createElement('span');
+                        resourcesLabel.className = 'resources-label';
+                        resourcesLabel.textContent = 'Resources';
+
+                        const resourcesList = document.createElement('ul');
+                        resourcesList.className = 'resources-list';
+
+                        section.resources.forEach(resource => {
+                            const li = document.createElement('li');
+                            const link = document.createElement('a');
+                            link.className = 'resource-link';
+                            link.href = resource.url;
+                            link.target = '_blank';
+                            link.rel = 'noopener noreferrer';
+                            link.textContent = resource.title;
+                            li.appendChild(link);
+                            resourcesList.appendChild(li);
+                        });
+
+                        resourcesDiv.appendChild(resourcesLabel);
+                        resourcesDiv.appendChild(resourcesList);
+                        sectionDiv.appendChild(resourcesDiv);
+                    }
+
+                    weekContent.appendChild(sectionDiv);
+                });
+
+                weekCard.appendChild(weekHeader);
+                weekCard.appendChild(weekContent);
+                timeline.appendChild(weekCard);
+            });
+        }
+
+        function toggleWeek(index) {
+            const header = document.querySelector(`#week-${index} .week-header`);
+            const content = document.getElementById(`content-${index}`);
+
+            if (header) {
+                header.classList.toggle('expanded');
+                content.classList.toggle('expanded');
+            }
+        }
+
+        function toggleItemClass(element, isChecked) {
+            if (isChecked) {
+                element.classList.add('completed');
+            } else {
+                element.classList.remove('completed');
+            }
+        }
+
+        function expandAll() {
+            planData.forEach((item, index) => {
+                if (!item.phase) {
+                    const header = document.querySelector(`#week-${index} .week-header`);
+                    const content = document.getElementById(`content-${index}`);
+                    if (header && !header.classList.contains('expanded')) {
+                        header.classList.add('expanded');
+                        content.classList.add('expanded');
+                    }
+                }
+            });
+        }
+
+        function collapseAll() {
+            planData.forEach((item, index) => {
+                if (!item.phase) {
+                    const header = document.querySelector(`#week-${index} .week-header`);
+                    const content = document.getElementById(`content-${index}`);
+                    if (header && header.classList.contains('expanded')) {
+                        header.classList.remove('expanded');
+                        content.classList.remove('expanded');
+                    }
+                }
+            });
+        }
+
+        function saveProgress() {
+            const progress = {};
+            document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                const id = checkbox.parentElement.id;
+                progress[id] = checkbox.checked;
+            });
+            localStorage.setItem('careerPivotProgress', JSON.stringify(progress));
+        }
+
+        function loadProgress() {
+            const saved = localStorage.getItem('careerPivotProgress');
+            if (saved) {
+                const progress = JSON.parse(saved);
+                Object.keys(progress).forEach(id => {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        const checkbox = element.querySelector('input[type="checkbox"]');
+                        checkbox.checked = progress[id];
+                        toggleItemClass(element, progress[id]);
+                    }
+                });
+            }
+        }
+
+        function updateProgress() {
+            const allCheckboxes = Array.from(document.querySelectorAll('input[type="checkbox"]'));
+            const checkedCount = allCheckboxes.filter(c => c.checked).length;
+            const percentage = Math.round((checkedCount / allCheckboxes.length) * 100);
+
+            document.getElementById('progress-fill').style.width = percentage + '%';
+            document.getElementById('progress-text').textContent = percentage + '%';
+
+            const stats = document.getElementById('stats');
+            stats.innerHTML = `<strong>${checkedCount} of ${allCheckboxes.length}</strong> tasks completed`;
+        }
+
+        function resetProgress() {
+            if (confirm('Reset all progress? This cannot be undone.')) {
+                localStorage.removeItem('careerPivotProgress');
+                document.querySelectorAll('input[type="checkbox"]').forEach(c => {
+                    c.checked = false;
+                    c.parentElement.classList.remove('completed');
+                });
+                updateProgress();
+            }
+        }
+
+        function exportData() {
+            const progress = localStorage.getItem('careerPivotProgress');
+            const data = {
+                exportDate: new Date().toISOString(),
+                progress: progress ? JSON.parse(progress) : {}
+            };
+            const json = JSON.stringify(data, null, 2);
+            const blob = new Blob([json], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'career-pivot-progress.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        window.addEventListener('load', initializeUI);
+    </script>
+</body>
+</html>
